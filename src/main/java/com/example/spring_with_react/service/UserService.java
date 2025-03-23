@@ -7,6 +7,10 @@ import com.example.spring_with_react.utils.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
 
@@ -31,5 +35,12 @@ public class UserService {
         userResponse.setEmail(savedEntity.getEmail());
         userResponse.setName(savedEntity.getName());
         return userResponse;
+    }
+
+    public List<UserResponse> findAllUsers() {
+        List<UserEntity> userEntities=userRepository.findAll();
+        List<UserResponse> userResponseList=userEntities.stream().map(e-> UserResponse.builder().userId(e.getId()).name(e.getName()).email(e.getEmail()).build()).collect(Collectors.toList());
+
+    return userResponseList;
     }
 }

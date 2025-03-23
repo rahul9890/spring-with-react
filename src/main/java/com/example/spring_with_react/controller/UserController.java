@@ -5,13 +5,13 @@ import com.example.spring_with_react.model.response.createUser.UserResponse;
 import com.example.spring_with_react.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin
 public class UserController {
 
     private UserService userService;
@@ -27,5 +27,12 @@ public class UserController {
         UserResponse createdUser=userService.createUser(user);
 
         return ResponseEntity.ok(createdUser);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserResponse>> findAllUsers(){
+        List<UserResponse> userResponses=userService.findAllUsers();
+
+        return ResponseEntity.ok(userResponses);
     }
 }
