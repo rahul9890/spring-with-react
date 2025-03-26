@@ -1,13 +1,13 @@
 package com.example.spring_with_react.service;
 
-import com.example.spring_with_react.model.request.createUser.User;
+import com.example.spring_with_react.model.request.authenticateUser.UserAuthenticationReq;
+import com.example.spring_with_react.model.request.createUser.RegisterUserReq;
 import com.example.spring_with_react.model.response.createUser.UserResponse;
 import com.example.spring_with_react.repository.UserRepository;
 import com.example.spring_with_react.utils.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,10 +20,11 @@ public class UserService {
         this.userRepository=userRepository;
     }
 
-    public UserResponse createUser(User user){
+    public UserResponse createUser(RegisterUserReq registerUserReq){
         UserEntity userEntity=new UserEntity();
-        userEntity.setName(user.getName());
-        userEntity.setEmail(user.getEmail());
+        userEntity.setUserName(registerUserReq.getName());
+        userEntity.setUserEmail(registerUserReq.getEmail());
+        userEntity.setUserPassword(registerUserReq.getPassword());
         UserResponse userResponse=new UserResponse();
         UserEntity savedEntity=new UserEntity();
         try {
@@ -31,16 +32,30 @@ public class UserService {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
-        userResponse.setUserId(savedEntity.getId());
-        userResponse.setEmail(savedEntity.getEmail());
-        userResponse.setName(savedEntity.getName());
+        userResponse.setUserId(savedEntity.getUserId());
+        userResponse.setUserEmail(savedEntity.getUserEmail());
+        userResponse.setUserName(savedEntity.getUserName());
         return userResponse;
     }
 
     public List<UserResponse> findAllUsers() {
         List<UserEntity> userEntities=userRepository.findAll();
-        List<UserResponse> userResponseList=userEntities.stream().map(e-> UserResponse.builder().userId(e.getId()).name(e.getName()).email(e.getEmail()).build()).collect(Collectors.toList());
+        List<UserResponse> userResponseList=userEntities.stream().map(e-> UserResponse.builder().
+                userId(e.getUserId()).userName(e.getUserName()).userEmail(e.getUserEmail()).build()).collect(Collectors.toList());
 
     return userResponseList;
+    }
+
+    public boolean authenticateUser(UserAuthenticationReq userAuthenticationReq) {
+        UserEntity userEntity=userRepository.findUserEntityByUserEmail(userAuthenticationReq.getEmail());
+
+        if (userEntity != null
+                && userEntity.getUserEmail().equals(userAuthenticationReq.getEmail())
+                && userEntity.getUserPassword().equals(userAuthenticationReq.getPassword())) {
+
+            return true;
+        }
+
+        return false;
     }
 }
