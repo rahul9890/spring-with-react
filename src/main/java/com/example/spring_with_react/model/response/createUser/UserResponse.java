@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResponse {
-            private Integer userId;
+    private Integer userId;
         private String userName;
         private String userEmail;
 

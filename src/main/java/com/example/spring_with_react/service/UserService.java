@@ -2,6 +2,7 @@ package com.example.spring_with_react.service;
 
 import com.example.spring_with_react.model.request.authenticateUser.UserAuthenticationReq;
 import com.example.spring_with_react.model.request.createUser.RegisterUserReq;
+import com.example.spring_with_react.model.request.update.UpdateUserReq;
 import com.example.spring_with_react.model.response.createUser.UserResponse;
 import com.example.spring_with_react.repository.UserRepository;
 import com.example.spring_with_react.utils.UserEntity;
@@ -57,5 +58,28 @@ public class UserService {
         }
 
         return false;
+    }
+
+    public UserResponse updateUser(UpdateUserReq updateUserReq) {
+        UserEntity userEntity=userRepository.findUserEntityByUserId(updateUserReq.getUserId());
+        if(null==userEntity){
+            throw new RuntimeException("User Not Found");
+        }
+        // Update the existing entity instead of creating a new one
+        if(null!=updateUserReq.getUserName()){
+            userEntity.setUserName(updateUserReq.getUserName());
+        }
+       if(null!=updateUserReq.getUserEmail()){
+           userEntity.setUserEmail(updateUserReq.getUserEmail());
+       }
+
+
+        UserEntity updateUserEntity=userRepository.save(userEntity);
+        UserResponse userResponse=new UserResponse();
+        userResponse.setUserId(updateUserEntity.getUserId());
+
+        userResponse.setUserName(updateUserEntity.getUserName());
+        userResponse.setUserEmail(updateUserEntity.getUserEmail());
+        return userResponse;
     }
 }

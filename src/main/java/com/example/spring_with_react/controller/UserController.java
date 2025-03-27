@@ -2,6 +2,7 @@ package com.example.spring_with_react.controller;
 
 import com.example.spring_with_react.model.request.authenticateUser.UserAuthenticationReq;
 import com.example.spring_with_react.model.request.createUser.RegisterUserReq;
+import com.example.spring_with_react.model.request.update.UpdateUserReq;
 import com.example.spring_with_react.model.response.createUser.UserResponse;
 import com.example.spring_with_react.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +31,24 @@ public class UserController {
         return ResponseEntity.ok(createdUser);
     }
 
-    @PostMapping("/authentication")
-    public boolean authenticateUser(@RequestBody UserAuthenticationReq userAuthenticationReq){
-        boolean authenticatedUser=userService.authenticateUser(userAuthenticationReq);
-        return authenticatedUser;
-    }
-
     @GetMapping
     public ResponseEntity<List<UserResponse>> findAllUsers(){
         List<UserResponse> userResponses=userService.findAllUsers();
 
         return ResponseEntity.ok(userResponses);
     }
+
+    @PutMapping
+    public ResponseEntity<UserResponse> updateUser(@RequestBody UpdateUserReq updateUserReq){
+        UserResponse userResponse=userService.updateUser(updateUserReq);
+        return ResponseEntity.ok(userResponse);
+    }
+
+    @PostMapping("/authentication")
+    public boolean authenticateUser(@RequestBody UserAuthenticationReq userAuthenticationReq){
+        boolean authenticatedUser=userService.authenticateUser(userAuthenticationReq);
+        return authenticatedUser;
+    }
+
+
 }
