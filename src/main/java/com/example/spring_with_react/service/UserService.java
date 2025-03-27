@@ -22,9 +22,9 @@ public class UserService {
 
     public UserResponse createUser(RegisterUserReq registerUserReq){
         UserEntity userEntity=new UserEntity();
-        userEntity.setUserName(registerUserReq.getName());
-        userEntity.setUserEmail(registerUserReq.getEmail());
-        userEntity.setUserPassword(registerUserReq.getPassword());
+        userEntity.setUserName(registerUserReq.getUser_name());
+        userEntity.setUserEmail(registerUserReq.getUser_email());
+        userEntity.setUserPassword(registerUserReq.getUser_password());
         UserResponse userResponse=new UserResponse();
         UserEntity savedEntity=new UserEntity();
         try {
