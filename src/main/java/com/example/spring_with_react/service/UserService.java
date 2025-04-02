@@ -23,9 +23,9 @@ public class UserService {
 
     public UserResponse createUser(RegisterUserReq registerUserReq){
         UserEntity userEntity=new UserEntity();
-        userEntity.setUserName(registerUserReq.getUser_name());
-        userEntity.setUserEmail(registerUserReq.getUser_email());
-        userEntity.setUserPassword(registerUserReq.getUser_password());
+        userEntity.setUserName(registerUserReq.getUserName());
+        userEntity.setUserEmail(registerUserReq.getUserEmail());
+        userEntity.setUserPassword(registerUserReq.getUserPassword());
         UserResponse userResponse=new UserResponse();
         UserEntity savedEntity=new UserEntity();
         try {
@@ -81,5 +81,9 @@ public class UserService {
         userResponse.setUserName(updateUserEntity.getUserName());
         userResponse.setUserEmail(updateUserEntity.getUserEmail());
         return userResponse;
+    }
+
+    public void deleteUserByEmail(String userEmail) {
+        userRepository.deleteUserEntityByUserEmail(userEmail);
     }
 }
