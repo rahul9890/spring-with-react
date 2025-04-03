@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDocumentService {
@@ -52,5 +56,21 @@ public class UserDocumentService {
 
 
         return uploadUserDocumentResp;
+    }
+
+    public List<UploadUserDocumentResp> getAllUserDocs() {
+
+        List<UserDocUploadEntity> userDocUploadEntities=userDocUploadRepository.findAll();
+        List<UploadUserDocumentResp> uploadUserDocumentResps=
+        userDocUploadEntities.stream().map(e->  UploadUserDocumentResp.builder()
+                .documentId(e.getDocumentId())
+                .userEmail(e.getUserEntity().getUserEmail())
+                .fileName(e.getFileName())
+                .fileType(e.getFileType())
+                .fileData(Base64.getEncoder().encodeToString(e.getFileData()) ).build()
+        ).collect(Collectors.toList());
+
+
+        return uploadUserDocumentResps;
     }
 }
