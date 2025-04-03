@@ -5,7 +5,7 @@ import com.example.spring_with_react.model.request.createUser.RegisterUserReq;
 import com.example.spring_with_react.model.request.update.UpdateUserReq;
 import com.example.spring_with_react.model.response.createUser.UserResponse;
 import com.example.spring_with_react.repository.UserRepository;
-import com.example.spring_with_react.utils.UserEntity;
+import com.example.spring_with_react.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

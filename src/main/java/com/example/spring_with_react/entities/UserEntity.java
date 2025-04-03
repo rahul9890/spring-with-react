@@ -1,9 +1,11 @@
-package com.example.spring_with_react.utils;
+package com.example.spring_with_react.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnTransformer;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,4 +28,7 @@ public class UserEntity {
     )
     private String userPassword;
 
+
+    @OneToMany(mappedBy = "userEntity", cascade=CascadeType.ALL)
+    private List<UserDocUploadEntity> userDocUploadEntities;
 }
