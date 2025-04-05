@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/userdocument")
+@CrossOrigin
 public class UserDocumentController {
 
     private UserDocumentService userDocumentService;
