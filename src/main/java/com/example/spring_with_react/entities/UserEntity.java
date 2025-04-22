@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnTransformer;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,8 +17,9 @@ public class UserEntity {
 
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer userId;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2",strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID userId;
 
     private String userName;
     private String userEmail;
