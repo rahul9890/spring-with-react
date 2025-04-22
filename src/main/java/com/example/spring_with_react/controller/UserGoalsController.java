@@ -15,15 +15,21 @@ public class UserGoalsController {
 
     private UserGoalsService userGoalsService;
 
-    public UserGoalsController(@Autowired UserGoalsService userGoalsService){
-        this.userGoalsService=userGoalsService;
+    public UserGoalsController(@Autowired UserGoalsService userGoalsService) {
+        this.userGoalsService = userGoalsService;
     }
 
 
     @PutMapping
-    public ResponseEntity<UserGoalsResp> createUserGoals(@RequestBody UserGoalsReq userGoalsReq){
+    public ResponseEntity<String> createUserGoals(@RequestBody UserGoalsReq userGoalsReq) {
 
-        UserGoalsResp userGoalsResp =userGoalsService.createuserGoals(userGoalsReq);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userGoalsResp);
+        boolean userGoalCreated = userGoalsService.createuserGoals(userGoalsReq);
+
+        if (userGoalCreated) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("User goal created successfully.");
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create user goal.");
     }
+
 }

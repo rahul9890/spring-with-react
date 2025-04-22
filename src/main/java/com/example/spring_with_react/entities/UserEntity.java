@@ -34,4 +34,5 @@ public class UserEntity {
 
     @OneToMany(mappedBy = "userEntity", cascade=CascadeType.ALL)
     private List<UserDocUploadEntity> userDocUploadEntities;
+
 }
