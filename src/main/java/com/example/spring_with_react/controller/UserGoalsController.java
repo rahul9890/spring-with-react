@@ -8,6 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/user/goals")
 @CrossOrigin
@@ -32,4 +36,10 @@ public class UserGoalsController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create user goal.");
     }
 
+    @GetMapping
+    public ResponseEntity<List<UserGoalsResp>> getGoalsForUser(@RequestParam UUID userId){
+
+
+        return ResponseEntity.ok(userGoalsService.getGoalsForUser(userId));
+    }
 }

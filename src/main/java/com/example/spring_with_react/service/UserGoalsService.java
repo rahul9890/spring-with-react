@@ -10,6 +10,10 @@ import com.example.spring_with_react.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class UserGoalsService {
 
@@ -42,5 +46,21 @@ public class UserGoalsService {
         }
 
         return false;
+    }
+
+    public List<UserGoalsResp> getGoalsForUser(UUID userId) {
+        List<UserGoalsResp> userGoalsRespList=new ArrayList<>();
+        List<UserGoalsEntity> userGoalsEntities=userGoalsRepo.findByUserEntity_UserId(userId);
+        for (UserGoalsEntity userGoalsEntity:userGoalsEntities){
+            UserGoalsResp userGoalsResp=new UserGoalsResp();
+            userGoalsResp.setGoalId(userGoalsEntity.getGoalEntity().getGoalId());
+            userGoalsResp.setGoalTitle(userGoalsEntity.getGoalEntity().getGoalTitle());
+            userGoalsResp.setGoalType(userGoalsEntity.getGoalEntity().getGoalType());
+            userGoalsResp.setGoalDescription(userGoalsEntity.getGoalEntity().getGoalDescription());
+            userGoalsResp.setGoalPriority(userGoalsEntity.getGoalEntity().getGoalPriority());
+            userGoalsResp.setDueDate(userGoalsEntity.getGoalEntity().getDueDate());
+            userGoalsRespList.add(userGoalsResp);
+        }
+        return userGoalsRespList;
     }
 }
