@@ -47,17 +47,19 @@ public class UserService {
     return userResponseList;
     }
 
-    public boolean authenticateUser(UserAuthenticationReq userAuthenticationReq) {
+    public UserResponse authenticateUser(UserAuthenticationReq userAuthenticationReq) {
         UserEntity userEntity=userRepository.findUserEntityByUserEmail(userAuthenticationReq.getEmail());
-
+        UserResponse userResponse=new UserResponse();
         if (userEntity != null
                 && userEntity.getUserEmail().equals(userAuthenticationReq.getEmail())
                 && userEntity.getUserPassword().equals(userAuthenticationReq.getPassword())) {
-
-            return true;
+            userResponse.setUserId(userEntity.getUserId());
+            userResponse.setUserEmail(userEntity.getUserEmail());
+            userResponse.setUserName(userEntity.getUserName());
+            return userResponse;
         }
 
-        return false;
+        return userResponse;
     }
 
     public UserResponse updateUser(UpdateUserReq updateUserReq) {

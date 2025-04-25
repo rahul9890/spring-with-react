@@ -47,9 +47,8 @@ public class UserController {
     }
 
     @PostMapping("/authentication")
-    public boolean authenticateUser(@RequestBody UserAuthenticationReq userAuthenticationReq){
-        boolean authenticatedUser=userService.authenticateUser(userAuthenticationReq);
-        return authenticatedUser;
+    public UserResponse authenticateUser(@RequestBody UserAuthenticationReq userAuthenticationReq){
+        return userService.authenticateUser(userAuthenticationReq);
     }
 
     @DeleteMapping
