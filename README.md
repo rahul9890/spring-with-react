@@ -1,3 +1,19 @@
+## 🚀 Getting Started
+
+### Prerequisites
+- Java 17+
+- Maven 
+- PostgreSQL
+
+## 🧰 Built With
+
+- Spring Boot
+- Spring Data JPA
+- PostgreSQL
+- Lombok
+- AOP for Logging
+
+
 About the repository:
  * Its a backend repo which have multiple endpoints to support various UI application 
  function.

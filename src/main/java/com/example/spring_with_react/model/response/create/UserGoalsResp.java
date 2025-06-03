@@ -14,5 +14,5 @@ public class UserGoalsResp {
     private String goalType;
     private String goalDescription;
     private String goalPriority;
-    private Date dueDate;
+    private String dueDate;
 }

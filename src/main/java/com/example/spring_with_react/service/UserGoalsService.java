@@ -7,6 +7,7 @@ import com.example.spring_with_react.model.request.create.goals.UserGoalsReq;
 import com.example.spring_with_react.model.response.create.UserGoalsResp;
 import com.example.spring_with_react.repository.UserGoalsRepo;
 import com.example.spring_with_react.repository.UserRepository;
+import com.example.spring_with_react.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,7 @@ public class UserGoalsService {
             userGoalsResp.setGoalType(userGoalsEntity.getGoalEntity().getGoalType());
             userGoalsResp.setGoalDescription(userGoalsEntity.getGoalEntity().getGoalDescription());
             userGoalsResp.setGoalPriority(userGoalsEntity.getGoalEntity().getGoalPriority());
-            userGoalsResp.setDueDate(userGoalsEntity.getGoalEntity().getDueDate());
+            userGoalsResp.setDueDate(DateUtil.convertTimeStampToDDMMMYYYY(userGoalsEntity.getGoalEntity().getDueDate()));
             userGoalsRespList.add(userGoalsResp);
         }
         return userGoalsRespList;
