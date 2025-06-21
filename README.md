@@ -12,13 +12,17 @@
 - PostgreSQL
 - Lombok
 - AOP for Logging
-
+- Filters with logback-springg.xml logging patterns
 
 About the repository:
  * Its a backend repo which have multiple endpoints to support various UI application 
  function.
  * This repo uses postgres DB and uses spring JPA.
  * This repo have AOP for logging
+ * if we want to add some filed in loggers just add that field as key and value in MDC.put like this
+   MDC.put(MDC_CORRELATION_ID_KEY, correlationId); then we dont need to add that in logback- spring.xml as
+   %replace(%X){'context=\{.*?\}(, ){0,1}', '' this will automaticlly print key and values from MDC in logs
+
 
 Endpoints:
 

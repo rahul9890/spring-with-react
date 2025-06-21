@@ -29,7 +29,7 @@ public class CorrelationIdFilter implements Filter {
 
         // Set into MDC so it's available for logging
         MDC.put(MDC_CORRELATION_ID_KEY, correlationId);
-
+        MDC.put("testKey","testKey");
         try {
             chain.doFilter(request, response);
         } finally {
