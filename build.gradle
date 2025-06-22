@@ -42,3 +42,8 @@ pitest {
 test {
     useJUnitPlatform()
 }
+
+tasks.named("build") {
+    dependsOn("pitest")
+}
+
