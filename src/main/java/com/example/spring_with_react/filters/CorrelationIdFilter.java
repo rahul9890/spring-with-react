@@ -9,13 +9,12 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.UUID;
-
+import static  com.example.spring_with_react.utils.CommonConstants.CORRELATION_ID;
 @Component
 @Order(1)
 public class CorrelationIdFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(CorrelationIdFilter.class);
     private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
-    private static final String MDC_CORRELATION_ID_KEY = "correlationId";
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,12 +29,11 @@ public class CorrelationIdFilter implements Filter {
         }
 
         // Set into MDC so it's available for logging
-        MDC.put(MDC_CORRELATION_ID_KEY, correlationId);
-        MDC.put("testKey","testKey");
+        MDC.put(CORRELATION_ID, correlationId);
         try {
             chain.doFilter(request, response);
         } finally {
-            MDC.remove(MDC_CORRELATION_ID_KEY); // Clean up
+            MDC.remove(CORRELATION_ID); // Clean up
         }
     }
 }

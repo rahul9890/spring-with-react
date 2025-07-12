@@ -1,6 +1,11 @@
 <configuration>
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{2}  -  %replace(%X){'context=\{.*?\}(, ){0,1}', ''}
-- %msg%n" />
+
+    <!-- Register your custom converter -->
+    <conversionRule conversionWord="orderedMDC" converterClass="com.example.spring_with_react.configs.OrderedMDCConverter"/>
+
+    <!-- Updated pattern -->
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{2} - %orderedMDC - %msg%n"/>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -9,6 +14,7 @@
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="CONSOLE"/>
     </root>
+
 </configuration>

@@ -19,9 +19,14 @@ About the repository:
  function.
  * This repo uses postgres DB and uses spring JPA.
  * This repo have AOP for logging
- * if we want to add some filed in loggers just add that field as key and value in MDC.put like this
-   MDC.put(MDC_CORRELATION_ID_KEY, correlationId); then we dont need to add that in logback- spring.xml as
-   %replace(%X){'context=\{.*?\}(, ){0,1}', '' this will automaticlly print key and values from MDC in logs
+   * How to add fields in logs:
+   * - If you want to add a field to appear in logs, just add it to MDC like this:
+  *     MDC.put("YourKey", "yourValue");
+  * - If you want it to appear in a fixed order (before others), also add it to DEFAULT_ORDERED_FIELDS.
+  * - No need to modify logback-spring.xml for individual fields. All MDC fields (ordered and unordered) will be printed automatically.
+  *
+  * Example output:
+  *     ip=192.168.1.2, Correlation-ID=abc123, CustomerId=CUST001, SessionId=xyz789, User-Agent=Postman
 
 
 Endpoints:
