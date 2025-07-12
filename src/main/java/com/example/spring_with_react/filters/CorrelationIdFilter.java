@@ -13,7 +13,7 @@ import static  com.example.spring_with_react.utils.CommonConstants.CORRELATION_I
 @Component
 @Order(1)
 public class CorrelationIdFilter implements Filter {
-    private static final Logger logger = LoggerFactory.getLogger(CorrelationIdFilter.class);
+
     private static final String CORRELATION_ID_HEADER = "X-Correlation-ID";
 
     @Override

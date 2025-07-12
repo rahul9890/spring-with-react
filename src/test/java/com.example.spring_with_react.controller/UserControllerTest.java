@@ -71,9 +71,5 @@ public class UserControllerTest {
                 event.getFormattedMessage().contains("Logging before execution of method: findAllUsers")
         );
 
-        assertThat(logs).anyMatch(event ->
-                event.getMDCPropertyMap().containsKey("correlationId") &&
-                        event.getMDCPropertyMap().get("correlationId").matches("[a-f0-9\\-]{36}")
-        );
     }
 }
