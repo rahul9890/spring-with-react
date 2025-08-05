@@ -5,3 +5,5 @@ Whenerver I will remember or see some funtions which are not added in this repo 
     ✅ Metrics monitoring
     ✅ Logging and Tracing
     ✅ Application Info (CPU, memory, threads, etc.)
+2. Write Junits
+3. write integration test with wiremock
