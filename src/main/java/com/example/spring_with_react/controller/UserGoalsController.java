@@ -1,6 +1,7 @@
 package com.example.spring_with_react.controller;
 
 import com.example.spring_with_react.model.request.create.goals.UserGoalsReq;
+import com.example.spring_with_react.model.request.update.goals.UserGoalUpdate;
 import com.example.spring_with_react.model.response.create.UserGoalsResp;
 import com.example.spring_with_react.service.UserGoalsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,20 @@ public class UserGoalsController {
 
 
         return ResponseEntity.ok(userGoalsService.getGoalsForUser(userId));
+    }
+
+    @PutMapping("/update/{goalId}")
+    public ResponseEntity<String> updateUserGoal(
+            @PathVariable UUID goalId,
+            @RequestBody UserGoalUpdate userGoalUpdate) {
+
+        boolean updated = userGoalsService.updateUserGoal(goalId, userGoalUpdate);
+
+        if (updated) {
+            return ResponseEntity.ok("User goal updated successfully");
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Goal not found");
     }
 }

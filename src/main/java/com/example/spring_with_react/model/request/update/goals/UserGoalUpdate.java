@@ -1,4 +1,4 @@
-package com.example.spring_with_react.model.response.create;
+package com.example.spring_with_react.model.request.update.goals;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class UserGoalsResp {
+public class UserGoalUpdate {
     private UUID goalId;
     private String goalTitle;
     private String goalType;

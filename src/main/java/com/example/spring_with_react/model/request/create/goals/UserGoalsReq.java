@@ -14,5 +14,6 @@ public class UserGoalsReq {
     private String goalType;
     private String goalDescription;
     private String goalPriority;
+    private String goalComments;
     private Date dueDate;
 }

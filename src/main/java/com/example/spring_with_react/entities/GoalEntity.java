@@ -31,6 +31,9 @@ public class GoalEntity {
     @Column(name = "goal_priority", length = 10)
     private String goalPriority;
 
+    @Column(name = "goal_comments" ,length = 100)
+    private String goalComments;
+
     @Column(name = "due_date")
     private Date dueDate;
 }

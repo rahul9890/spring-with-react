@@ -4,6 +4,7 @@ import com.example.spring_with_react.entities.GoalEntity;
 import com.example.spring_with_react.entities.UserEntity;
 import com.example.spring_with_react.entities.UserGoalsEntity;
 import com.example.spring_with_react.model.request.create.goals.UserGoalsReq;
+import com.example.spring_with_react.model.request.update.goals.UserGoalUpdate;
 import com.example.spring_with_react.model.response.create.UserGoalsResp;
 import com.example.spring_with_react.repository.UserGoalsRepo;
 import com.example.spring_with_react.repository.UserRepository;
@@ -59,9 +60,39 @@ public class UserGoalsService {
             userGoalsResp.setGoalType(userGoalsEntity.getGoalEntity().getGoalType());
             userGoalsResp.setGoalDescription(userGoalsEntity.getGoalEntity().getGoalDescription());
             userGoalsResp.setGoalPriority(userGoalsEntity.getGoalEntity().getGoalPriority());
+            userGoalsResp.setGoalComments(userGoalsEntity.getGoalEntity().getGoalComments());
             userGoalsResp.setDueDate(DateUtil.convertTimeStampToDDMMMYYYY(userGoalsEntity.getGoalEntity().getDueDate()));
             userGoalsRespList.add(userGoalsResp);
         }
         return userGoalsRespList;
     }
+
+    public boolean updateUserGoal(UUID goalId, UserGoalUpdate userGoalUpdate) {
+
+        // 1️⃣ Fetch UserGoalsEntity using goalId
+        UserGoalsEntity userGoalsEntity =
+                userGoalsRepo.findByGoalEntity_GoalId(goalId)
+                        .orElse(null);
+
+        if (userGoalsEntity == null) {
+            return false;
+        }
+
+        // 2️⃣ Get GoalEntity
+        GoalEntity goalEntity = userGoalsEntity.getGoalEntity();
+
+        // 3️⃣ Update fields
+        goalEntity.setGoalTitle(userGoalUpdate.getGoalTitle());
+        goalEntity.setGoalType(userGoalUpdate.getGoalType());
+        goalEntity.setGoalDescription(userGoalUpdate.getGoalDescription());
+        goalEntity.setGoalPriority(userGoalUpdate.getGoalPriority());
+        goalEntity.setGoalComments(userGoalUpdate.getGoalComments());
+
+
+        // 4️⃣ Save
+        userGoalsRepo.save(userGoalsEntity);
+
+        return true;
+    }
+
 }
