@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,10 +24,10 @@ public class UserGoalsController {
     }
 
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<String> createUserGoals(@RequestBody UserGoalsReq userGoalsReq) {
 
-        boolean userGoalCreated = userGoalsService.createuserGoals(userGoalsReq);
+        boolean userGoalCreated = userGoalsService.createUserGoals(userGoalsReq);
 
         if (userGoalCreated) {
             return ResponseEntity.status(HttpStatus.CREATED).body("User goal created successfully.");

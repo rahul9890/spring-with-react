@@ -27,12 +27,7 @@ public class UserService {
         userEntity.setUserEmail(registerUserReq.getUserEmail());
         userEntity.setUserPassword(registerUserReq.getUserPassword());
         UserResponse userResponse=new UserResponse();
-        UserEntity savedEntity=new UserEntity();
-        try {
-            savedEntity=userRepository.save(userEntity);
-        }catch (Exception e){
-            throw new RuntimeException(e);
-        }
+        UserEntity savedEntity=userRepository.save(userEntity);
         userResponse.setUserId(savedEntity.getUserId());
         userResponse.setUserEmail(savedEntity.getUserEmail());
         userResponse.setUserName(savedEntity.getUserName());
@@ -49,17 +44,17 @@ public class UserService {
 
     public UserResponse authenticateUser(UserAuthenticationReq userAuthenticationReq) {
         UserEntity userEntity=userRepository.findUserEntityByUserEmail(userAuthenticationReq.getEmail());
-        UserResponse userResponse=new UserResponse();
         if (userEntity != null
                 && userEntity.getUserEmail().equals(userAuthenticationReq.getEmail())
                 && userEntity.getUserPassword().equals(userAuthenticationReq.getPassword())) {
-            userResponse.setUserId(userEntity.getUserId());
-            userResponse.setUserEmail(userEntity.getUserEmail());
-            userResponse.setUserName(userEntity.getUserName());
-            return userResponse;
+            return UserResponse.builder()
+                    .userId(userEntity.getUserId())
+                    .userEmail(userEntity.getUserEmail())
+                    .userName(userEntity.getUserName())
+                    .build();
         }
 
-        return userResponse;
+        return null;
     }
 
     public UserResponse updateUser(UpdateUserReq updateUserReq) {

@@ -15,5 +15,5 @@ public class UserGoalUpdate {
     private String goalDescription;
     private String goalPriority;
     private String goalComments;
-    private String dueDate;
+   private Date dueDate;
 }

@@ -47,8 +47,12 @@ public class UserController {
     }
 
     @PostMapping("/authentication")
-    public UserResponse authenticateUser(@RequestBody UserAuthenticationReq userAuthenticationReq){
-        return userService.authenticateUser(userAuthenticationReq);
+    public ResponseEntity<UserResponse> authenticateUser(@RequestBody UserAuthenticationReq userAuthenticationReq){
+        UserResponse userResponse = userService.authenticateUser(userAuthenticationReq);
+        if (userResponse == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        return ResponseEntity.ok(userResponse);
     }
 
     @DeleteMapping

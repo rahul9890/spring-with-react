@@ -26,17 +26,20 @@ public class UserGoalsService {
         this.userRepository=userRepository;
     }
 
-    public boolean createuserGoals(UserGoalsReq userGoalsReq) {
-        UserGoalsResp userGoalsResp =new UserGoalsResp();
+    public boolean createUserGoals(UserGoalsReq userGoalsReq) {
         UserGoalsEntity userGoalsEntity=new UserGoalsEntity();
 
         UserEntity userEntity=userRepository.findUserEntityByUserId(userGoalsReq.getUserId());
+        if (userEntity == null) {
+            throw new RuntimeException("User not found");
+        }
 
         GoalEntity goalEntity = new GoalEntity();
         goalEntity.setGoalTitle(userGoalsReq.getGoalTitle());
         goalEntity.setGoalType(userGoalsReq.getGoalType());
         goalEntity.setGoalDescription(userGoalsReq.getGoalDescription());
         goalEntity.setGoalPriority(userGoalsReq.getGoalPriority());
+        goalEntity.setGoalComments(userGoalsReq.getGoalComments());
         goalEntity.setDueDate(userGoalsReq.getDueDate());
 
         userGoalsEntity.setUserEntity(userEntity);
@@ -87,7 +90,7 @@ public class UserGoalsService {
         goalEntity.setGoalDescription(userGoalUpdate.getGoalDescription());
         goalEntity.setGoalPriority(userGoalUpdate.getGoalPriority());
         goalEntity.setGoalComments(userGoalUpdate.getGoalComments());
-
+        goalEntity.setDueDate(userGoalUpdate.getDueDate());
 
         // 4️⃣ Save
         userGoalsRepo.save(userGoalsEntity);
